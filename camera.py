@@ -2,16 +2,18 @@
 import os
 import subprocess
 import signal
+import config as c
 
 
 class Camera(object):
 
     def __init__(self):
+        # 摄像头状态 0关闭 1打开
         self.status = 0
 
     def up(self):
         try:
-            subprocess.Popen("/home/pi/mjpg/mjpg-streamer/startup.sh",
+            subprocess.Popen(c.PATH,
                              stdout=subprocess.PIPE, shell=True)
             print('camera_up')
         except Exception as e:

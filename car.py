@@ -45,13 +45,22 @@ class Car(object):
     def __init__(self):
         gpio.setmode(gpio.BOARD)
         gpio.setup(c.PIN_IO_DIS, gpio.IN)
+        # 停止状态 0为停止,1为运行
+        self.stop_flag = 0
 
         self.left_wheel = Wheel(c.PIN_IO_IN1, c.PIN_IO_IN2, c.PIN_ENABLE_A1, c.PIN_ENABLE_A2)
         self.right_wheel = Wheel(c.PIN_IO_IN3, c.PIN_IO_IN4, c.PIN_ENABLE_B1, c.PIN_ENABLE_B2)
 
     def forward(self):
-        self.left_wheel.forward()
-        self.right_wheel.forward()
+        self.stop_flag = 1
+        while self.stop_flag:
+            if gpio.input(c.PIN_IO_DIS):
+                self.left_wheel.forward()
+                self.right_wheel.forward()
+            else:
+                self.left()
+                time.sleep(0.5)
+
 
     def backward(self):
         self.left_wheel.backward()
@@ -66,6 +75,7 @@ class Car(object):
         self.right_wheel.stop()
 
     def stop(self):
+        self.stop_flag = 0
         self.left_wheel.stop()
         self.right_wheel.stop()
 

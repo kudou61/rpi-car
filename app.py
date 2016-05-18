@@ -23,6 +23,7 @@ handle_map = {
 def main_page():
     return render_template("index.html")
 
+
 @app.route('/camera', methods=['GET'])
 def camera():
     return render_template("camera.html")
