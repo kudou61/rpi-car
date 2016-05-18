@@ -11,6 +11,3 @@
 
 ```python app.py```
 
-## UI
-
-![sample](https://github.com/fordoo/rpi-car/blob/master/sample.png?raw=true)
