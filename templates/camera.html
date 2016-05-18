@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>摄像头</title>
+  	<meta charset="utf-8" >
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  	<link rel="stylesheet" type="text/css" href="../static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <style type="text/css">
+    .container{
+        width: 100%;
+          text-align: center;
+          /*position: absolute;*/
+          margin-top: 50px;
+          padding:0px;
+      }
+      .container .stream{
+  /*			margin-bottom: 20px;
+          height: 280px;
+          background-color: #aaa;
+  */		    margin:20px 5px 20px 5px;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">WiFi小车</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">控制方向<span class="sr-only"></span></a></li>
+          <li><a href="/camera">查看画面<span class="sr-only"></span></a></li>
+          <li><a href="/info">硬件信息<span class="sr-only"></span></a></li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+    <div class="container">
+      <div class="stream">
+      	<center><img src="http://192.168.10.228:8081/?action=stream" style="width:80%"/></center>
+      </div>
+      <button type="button" class="btn btn-default btn-lg" onclick="camera_control()">开关</button>
+    </div>
+    <script src="../static/bootstrap-3.3.5-dist/js/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src='../static/bootstrap-3.3.5-dist/js/bootstrap.min.js'></script>
+    <script type="text/javascript">
+      function camera_control(){
+        $.get("/handle", {type:'camera_control'}, function(data) {
+                    if (data=="ok") {
+
+                    } else {
+                        alert('system error')
+                    }
+                });}
+    </script>
+  </body>
+</html>

@@ -2,10 +2,12 @@
 from flask import Flask, render_template, request, abort
 from car import Car
 from config import WEB_PORT
+from camera import Camera
 
 app = Flask(__name__)
 
 car = Car()
+camera = Camera()
 
 handle_map = {
     'forward': car.forward,
@@ -13,12 +15,17 @@ handle_map = {
     'right': car.right,
     'pause': car.stop,
     'backward': car.backward,
+    'camera_control': camera.turn,
 }
 
 
 @app.route('/', methods=['GET'])
 def main_page():
     return render_template("index.html")
+
+@app.route('/camera', methods=['GET'])
+def camera():
+    return render_template("camera.html")
 
 
 @app.route('/handle', methods=['GET'])
